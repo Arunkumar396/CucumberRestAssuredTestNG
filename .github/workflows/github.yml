@@ -1,5 +1,3 @@
-# GitHub Actions Workflow for CI on 'dev' Branch
-
 name: CI
 
 on:
@@ -10,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  selenium-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,8 +30,33 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven
 
+      - name: Install Google Chrome and ChromeDriver
+        run: |
+          # Install Google Chrome
+          sudo apt update
+          sudo apt install -y wget unzip
+          sudo apt install -y google-chrome-stable
+
+          # Install the latest version of ChromeDriver
+          CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin
+          sudo chmod +x /usr/local/bin/chromedriver
+
+      - name: Set up environment variables for headless mode
+        run: |
+          # Set environment variables for headless Chrome to avoid display issues
+          echo "CHROME_BIN=/usr/bin/google-chrome-stable" >> $GITHUB_ENV
+          echo "CHROME_DRIVER=/usr/local/bin/chromedriver" >> $GITHUB_ENV
+
       - name: Build and run tests using Maven
         run: mvn clean install
+
+      - name: Run Selenium Tests
+        run: |
+          # Run your Selenium tests here (e.g., Java tests)
+          mvn test
 
       - name: Run a one-line script
         run: echo Build and tests completed!
