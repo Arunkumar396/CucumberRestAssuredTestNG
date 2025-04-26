@@ -1,36 +1,36 @@
 $(document).ready(function() {
 CucumberHTML.timelineItems.pushArray([
   {
-    "id": "57185943-6749-4392-a0d5-f5045b1bd583",
+    "id": "8ed15d8c-97d6-48f9-b3bf-1c96dd33c610",
     "feature": "Validating Place API\u0027s",
     "scenario": "Verify if Delete Place functionality is working",
-    "start": 1745669496932,
+    "start": 1745679293539,
     "group": 14,
     "content": "",
     "tags": "",
-    "end": 1745669503579,
+    "end": 1745679320410,
     "className": "passed"
   },
   {
-    "id": "fc39bdfe-c8e1-477a-a78b-8f756f14bd90",
+    "id": "98d4cf93-a95d-4525-87bf-74f99c6ec71d",
     "feature": "Login Functionality for OpenCart E-commerce Website",
     "scenario": "Successful login with valid credentials",
-    "start": 1745669503601,
+    "start": 1745679320441,
     "group": 14,
     "content": "",
     "tags": "",
-    "end": 1745669506684,
-    "className": "failed"
+    "end": 1745679369166,
+    "className": "passed"
   },
   {
-    "id": "58e770b0-0c7b-4ae1-abde-6cb253e7ed93",
+    "id": "5a7a7700-dc8a-434f-8c11-60182b5eaeba",
     "feature": "Validating Place API\u0027s",
     "scenario": "Verify if Place is being Succesfully added using AddPlaceAPI",
-    "start": 1745669485016,
+    "start": 1745679225225,
     "group": 14,
     "content": "",
     "tags": "",
-    "end": 1745669496867,
+    "end": 1745679293492,
     "className": "passed"
   }
 ]);
