@@ -23,10 +23,22 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Set up Maven cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven
+
+      - name: Build and run tests using Maven
+        run: mvn clean test
+
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: echo Build and tests completed!
 
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo You can add deployment steps here if needed.
+          echo CI run for dev branch complete.
