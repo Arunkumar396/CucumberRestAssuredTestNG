@@ -58,6 +58,12 @@ jobs:
           # Run your Selenium tests here (e.g., Java tests)
           mvn test
 
+      - name: Upload test results as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: selenium-test-reports
+          path: target/surefire-reports/  # This path assumes you are using Surefire/JUnit; adjust if needed
+
       - name: Run a one-line script
         run: echo Build and tests completed!
 
