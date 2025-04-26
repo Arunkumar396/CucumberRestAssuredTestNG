@@ -7,14 +7,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
-import com.aventstack.extentreports.gherkin.model.Scenario;
-import com.aventstack.extentreports.gherkin.model.ScenarioOutline;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import util.ElementUtil;
 
@@ -25,7 +17,7 @@ public class DriverFactory {
 
     public WebDriver driver;
 
-    // ThreadLocal for WebDriver and ExtentTest
+    // ThreadLocal for WebDriver
     private static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
 
     /**
@@ -71,6 +63,10 @@ public class DriverFactory {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
 
+        // Set unique user data directory to avoid conflicts
+        String userDataDir = "/path/to/unique/directory/" + System.currentTimeMillis();
+        options.addArguments("user-data-dir=" + userDataDir);  // Unique user data directory
+
         if (browserview.equalsIgnoreCase("mobileview")) {
             setMobileEmulation(options);
         }
@@ -114,5 +110,12 @@ public class DriverFactory {
         return tlDriver.get();
     }
 
+    /**
+     * Properly quit the WebDriver instance at the end of the test.
+     */
+    public void quitDriver() {
+        if (tlDriver.get() != null) {
+            tlDriver.get().quit();
+        }
     }
-
+}
