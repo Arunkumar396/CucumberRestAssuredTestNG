@@ -1,42 +1,42 @@
 $(document).ready(function() {
 CucumberHTML.timelineItems.pushArray([
   {
-    "id": "e6d9fc49-ab88-4882-a47c-8707fb78572a",
-    "feature": "Validating Place API\u0027s",
-    "scenario": "Verify if Place is being Succesfully added using AddPlaceAPI",
-    "start": 1745668387812,
-    "group": 15,
-    "content": "",
-    "tags": "",
-    "end": 1745668399364,
-    "className": "passed"
-  },
-  {
-    "id": "038eaa5a-8df1-4e88-a78b-1a356f0a5ac7",
+    "id": "57185943-6749-4392-a0d5-f5045b1bd583",
     "feature": "Validating Place API\u0027s",
     "scenario": "Verify if Delete Place functionality is working",
-    "start": 1745668399414,
-    "group": 15,
+    "start": 1745669496932,
+    "group": 14,
     "content": "",
     "tags": "",
-    "end": 1745668405826,
+    "end": 1745669503579,
     "className": "passed"
   },
   {
-    "id": "0c946c45-aaf3-4d4e-8bc6-d324e5b3eff9",
+    "id": "fc39bdfe-c8e1-477a-a78b-8f756f14bd90",
     "feature": "Login Functionality for OpenCart E-commerce Website",
     "scenario": "Successful login with valid credentials",
-    "start": 1745668405855,
-    "group": 15,
+    "start": 1745669503601,
+    "group": 14,
     "content": "",
     "tags": "",
-    "end": 1745668414247,
+    "end": 1745669506684,
+    "className": "failed"
+  },
+  {
+    "id": "58e770b0-0c7b-4ae1-abde-6cb253e7ed93",
+    "feature": "Validating Place API\u0027s",
+    "scenario": "Verify if Place is being Succesfully added using AddPlaceAPI",
+    "start": 1745669485016,
+    "group": 14,
+    "content": "",
+    "tags": "",
+    "end": 1745669496867,
     "className": "passed"
   }
 ]);
 CucumberHTML.timelineGroups.pushArray([
   {
-    "id": 15,
+    "id": 14,
     "content": "Thread[TestNG-test\u003dCucumber Tests-1,5,main]"
   }
 ]);
