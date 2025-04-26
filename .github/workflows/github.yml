@@ -65,6 +65,22 @@ jobs:
           name: Cucumber-Spark-Report
           path: test-output/
 
+      - name: Send email notification with build reports
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Email settings
+          from: ${{ secrets.EMAIL_USERNAME }}
+          to: arunmanasu199465@gmail.com
+          subject: "CI Build Success - Selenium and Cucumber Reports"
+          body: "Hi,\n\nThe CI build has completed successfully. Please find the attached reports for the TestNG and Cucumber execution.\n\nBest,\nYour CI System"
+          smtp-server: smtp.gmail.com
+          smtp-port: 587
+          smtp-user: ${{ secrets.EMAIL_USERNAME }}
+          smtp-password: ${{ secrets.EMAIL_PASSWORD }}
+          attachments: |
+            test-output/SparkReport/Spark.html
+            target/surefire-reports/*.xml
+
       - name: Run a one-line script
         run: echo Build and tests completed!
 
