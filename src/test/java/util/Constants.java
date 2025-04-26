@@ -25,7 +25,7 @@ public class Constants {
 	public static LinkedHashMap<String, String> writeOPMap = new LinkedHashMap<>();
 	public static final String OBJECTREPOSITORY_FILE_LOCATION = System.getProperty("user.dir") + "\\ObjectRepository.json";
 	public static final String INPUT_DATA_FILE_LOCATION = System.getProperty("user.dir") + "\\testData.xlsx";
-	public static final String TEST_INPUT_FILE_LOCATION = System.getProperty("user.dir") + "\\test-input\\";
+	public static final String TEST_INPUT_FILE_LOCATION = System.getProperty("user.dir") + "\\test-input\\testData.xlsx";
 	public static final String PROPERTIES_FILE_LOCATION = System.getProperty("user.dir") + "\\config.properties";
 	public static final String OUTPUT_DATA_FILE_LOCATION = System.getProperty("user.dir") + "\\testOutput.xlsx";
 	public static final String Dependence_DATA_FILE_LOCATION = System.getProperty("user.dir") + "\\testDependence.xlsx";

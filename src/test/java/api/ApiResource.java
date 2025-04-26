@@ -16,7 +16,4 @@ public enum ApiResource{
 	ApiResource(String resource) {
 		this.resource = resource;
 	}
-	
-	
-	
 }

@@ -7,4 +7,5 @@
 		"Logout_Txt":"//span[contains(text(),'My Account')]",
 			"LoadingIcon":"//i[@class='fa fa-home']"
    }
+   
 }
