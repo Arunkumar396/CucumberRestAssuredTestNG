@@ -32,12 +32,10 @@ jobs:
 
       - name: Install Google Chrome and ChromeDriver
         run: |
-          # Install Google Chrome
           sudo apt update
           sudo apt install -y wget unzip
           sudo apt install -y google-chrome-stable
-
-          # Install the latest version of ChromeDriver
+          
           CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
           wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
@@ -46,7 +44,6 @@ jobs:
 
       - name: Set up environment variables for headless mode
         run: |
-          # Set environment variables for headless Chrome to avoid display issues
           echo "CHROME_BIN=/usr/bin/google-chrome-stable" >> $GITHUB_ENV
           echo "CHROME_DRIVER=/usr/local/bin/chromedriver" >> $GITHUB_ENV
 
@@ -54,15 +51,35 @@ jobs:
         run: mvn clean install
 
       - name: Run Selenium Tests
-        run: |
-          # Run your Selenium tests here (e.g., Java tests)
-          mvn test
+        run: mvn test
 
-      - name: Upload test results as artifact
+      - name: Upload TestNG Surefire Reports
         uses: actions/upload-artifact@v4
         with:
-          name: selenium-test-reports
-          path: target/surefire-reports/  # This path assumes you are using Surefire/JUnit; adjust if needed
+          name: TestNG-Surefire-Reports
+          path: target/surefire-reports/
+
+      - name: Upload Cucumber Extent Spark Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cucumber-Spark-Report
+          path: test-output/
+
+      - name: Send email notification with build reports
+        uses: dawidd6/action-send-mail@v4
+        with:
+          # Email settings
+          from: ${{ secrets.EMAIL_USERNAME }}
+          to: arunmanasu199465@gmail.com
+          subject: "CI Build Success - Selenium and Cucumber Reports"
+          body: "Hi,\n\nThe CI build has completed successfully. Please find the attached reports for the TestNG and Cucumber execution.\n\nBest,\nYour CI System"
+          smtp-server: smtp.gmail.com
+          smtp-port: 587
+          smtp-user: ${{ secrets.EMAIL_USERNAME }}
+          smtp-password: ${{ secrets.EMAIL_PASSWORD }}
+          attachments: |
+            test-output/SparkReport/Spark.html
+            target/surefire-reports/*.xml
 
       - name: Run a one-line script
         run: echo Build and tests completed!
