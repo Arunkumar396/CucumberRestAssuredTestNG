@@ -35,5 +35,73 @@ jobs:
           sudo apt update
           sudo apt install -y wget unzip curl gnupg2
 
-          # Install Chrome
-          wget https://dl.googl
+          # Correct Chrome download URL
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb
+
+          # Get Chrome version and major version
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
+          CHROME_MAJOR_VERSION=$(echo $CHROME_VERSION | cut -d '.' -f 1)
+
+          # Download matching ChromeDriver
+          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR_VERSION}")
+          wget -O chromedriver.zip "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+          unzip chromedriver.zip
+          sudo mv chromedriver /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
+
+      - name: Set up environment variables for headless mode
+        run: |
+          echo "CHROME_BIN=/usr/bin/google-chrome" >> $GITHUB_ENV
+          echo "CHROME_DRIVER=/usr/local/bin/chromedriver" >> $GITHUB_ENV
+
+      - name: Start Local Server (if needed)
+        run: |
+          # Replace with your actual server command if needed
+          echo "No local server started (skip if not required)"
+
+      - name: Wait for Localhost (optional)
+        run: |
+          sudo npm install -g wait-on
+          wait-on http://localhost:3000 || echo "Skipping wait if no server is needed"
+
+      - name: Build and run tests using Maven
+        run: mvn clean install
+
+      - name: Run Selenium Tests
+        run: mvn test
+
+      - name: Upload TestNG Surefire Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestNG-Surefire-Reports
+          path: target/surefire-reports/
+
+      - name: Upload Cucumber Extent Spark Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cucumber-Spark-Report
+          path: test-output/
+
+      - name: Send email notification with build reports
+        uses: dawidd6/action-send-mail@v4
+        with:
+          from: ${{ secrets.EMAIL_USERNAME }}
+          to: arunmanasu199465@gmail.com
+          subject: "CI Build Success - Selenium and Cucumber Reports"
+          body: "Hi,\n\nThe CI build has completed successfully. Please find the attached reports for the TestNG and Cucumber execution.\n\nBest,\nYour CI System"
+          smtp-server: smtp.gmail.com
+          smtp-port: 587
+          smtp-user: ${{ secrets.EMAIL_USERNAME }}
+          smtp-password: ${{ secrets.EMAIL_PASSWORD }}
+          attachments: |
+            test-output/SparkReport/Spark.html
+            target/surefire-reports/*.xml
+
+      - name: Run a one-line script
+        run: echo Build and tests completed!
+
+      - name: Run a multi-line script
+        run: |
+          echo You can add deployment steps here if needed.
+          echo CI run for githubCI branch complete.
