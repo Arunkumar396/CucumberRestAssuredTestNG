@@ -6,7 +6,7 @@ package util;
  * 	2. Errors
  **/
 
-public class Statuss {
+public class Status {
 
 	private boolean isSuccess;
 	private String error;
@@ -15,11 +15,11 @@ public class Statuss {
 	 * Parameterized constructor to set the success/failure status
 	 * @param status
 	 */
-	public Statuss(boolean isSuccess) {
+	public Status(boolean isSuccess) {
 		this.isSuccess = isSuccess;
 	}
 
-	public Statuss(boolean isSuccess, String error) {
+	public Status(boolean isSuccess, String error) {
 		super();
 		this.isSuccess = isSuccess;
 		this.error = error;

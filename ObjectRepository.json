@@ -1,11 +1,20 @@
     {
-"LoginPage":{
-			"email":"email",
-			"password":"password",
-			"Forgotten":"Forgotten Password",
-			"login_Btn":"//input[@value='Login']",
-		"Logout_Txt":"//span[contains(text(),'My Account')]",
-			"LoadingIcon":"//i[@class='fa fa-home']"
+"NowkaripageHomePage":{
+			"email":"usernameField",
+			"password":"passwordField",
+			"login_Btn":"//*[@id='loginForm']/div[2]/div[3]/div/button[1]",
+			"nowkari_logo":"//img[@alt='Naukri Logo']",
+			"LoadingIcon":"//img[@alt='Naukri Logo']",
+			"viewprofile_icon":"//a[@href='/mnjuser/profile']",
+			"KeySql":"//div[@data-id='SQL_sql']/span/following-sibling::a",
+			"KeySkill_edit":"//*[@id='lazyKeySkills']/div/div/div[1]/span[2]",
+			"Savebutton":"(//button[contains(text(),'Save')])[2]",
+			"SucessMsg":"//p[contains(text(),'Success')]",
+			"searchbox":"keySkillSugg",
+			"searchboxlist":"//div[@id='sugDrp_keySkillSugg']/ul//li",
+			"profileContextMenu":"//div[@class='nI-gNb-drawer__bars']",
+			"logoutButton":"//a[@title='Logout']/span",
+			"homepageTxt":"//h1[contains(text(),'Find your dream job now')]"
    }
    
 }
