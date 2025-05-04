@@ -1,5 +1,5 @@
 Feature: Nowkari Profile Update
-  I want to update my profile
+  I want to update my profile.
 
   Scenario Outline: Delete and add the nowkari profile key skill
     Given I navigate to nowkari website
