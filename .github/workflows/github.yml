@@ -57,7 +57,7 @@ jobs:
           chromedriver --version
 
       - name: Check if Naukri site is reachable
-        run: curl -I --http2 https://www.naukri.com || echo "Website is not reachable"
+        run: curl -I --http2 --insecure https://www.naukri.com || echo "Website is not reachable"
 
       - name: Build and run tests using Maven
         run: mvn clean install -X
