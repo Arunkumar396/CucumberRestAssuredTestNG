@@ -55,7 +55,7 @@ jobs:
 
       - name: Check if site is reachable
         run: |
-          curl -I https://www.naukri.com || echo "Website is not reachable"
+          curl -I --http1.1 https://www.naukri.com || echo "Website is not reachable"
 
       - name: Build and run tests using Maven
         run: mvn clean install
