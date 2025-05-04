@@ -19,7 +19,4 @@ Feature: Nowkari Profile Update
     Examples: 
       | Email                          | Password  |Keyskill|
       | arun.shankar5959@gmail.com     | Arun@396  |SQL     |
-      | arun.shankar5959@gmail.com     | Arun@396  |SQL     |
-      | arun.shankar5959@gmail.com     | Arun@396  |SQL     |
-      | arun.shankar5959@gmail.com     | Arun@396  |SQL     |
-      | arun.shankar5959@gmail.com     | Arun@396  |SQL     |
+
