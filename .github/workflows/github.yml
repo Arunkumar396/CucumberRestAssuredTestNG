@@ -30,13 +30,27 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven
 
-      - name: Install matching ChromeDriver
+      - name: Install Google Chrome (latest stable)
         run: |
           sudo apt update
-          sudo apt install -y wget unzip curl gnupg2
+          sudo apt install -y wget curl gnupg2
+          # Install latest Google Chrome
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
-          # Install matching ChromeDriver
-          wget -O chromedriver.zip https://chromedriver.storage.googleapis.com/124.0.6367.60/chromedriver_linux64.zip
+      - name: Get Chrome version and install matching ChromeDriver
+        run: |
+          # Get the installed Chrome version
+          CHROME_VERSION=$(google-chrome --version | awk '{print $3}')
+          CHROME_MAJOR_VERSION=$(echo $CHROME_VERSION | cut -d '.' -f 1)
+          
+          # Install matching ChromeDriver based on the Chrome version
+          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR_VERSION}")
+          echo "Chrome version: $CHROME_VERSION"
+          echo "Matching ChromeDriver version: $CHROMEDRIVER_VERSION"
+
+          # Download ChromeDriver and install
+          wget -O chromedriver.zip https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
           unzip chromedriver.zip
           sudo mv chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
