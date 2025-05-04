@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "githubCI" ]
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "githubCI" ]
   workflow_dispatch:
 
 jobs:
@@ -87,4 +87,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo You can add deployment steps here if needed.
-          echo CI run for dev branch complete.
+          echo CI run for githubCI branch complete.
