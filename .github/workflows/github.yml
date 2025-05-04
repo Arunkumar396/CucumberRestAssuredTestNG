@@ -33,19 +33,32 @@ jobs:
       - name: Install Google Chrome and ChromeDriver
         run: |
           sudo apt update
-          sudo apt install -y wget unzip
-          sudo apt install -y google-chrome-stable
-          
-          CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
+          sudo apt install -y wget unzip curl
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb
+
+          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
+          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION")
           wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin
+          sudo mv chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Set up environment variables for headless mode
         run: |
-          echo "CHROME_BIN=/usr/bin/google-chrome-stable" >> $GITHUB_ENV
+          echo "CHROME_BIN=/usr/bin/google-chrome" >> $GITHUB_ENV
           echo "CHROME_DRIVER=/usr/local/bin/chromedriver" >> $GITHUB_ENV
+
+      - name: Start Local Server (if needed)
+        run: |
+          # Replace this with your actual command if needed (e.g., Spring Boot or React)
+          # nohup mvn spring-boot:run &
+          echo "No local server started (skip if not required)"
+        
+      - name: Wait for Localhost (optional)
+        run: |
+          sudo npm install -g wait-on
+          wait-on http://localhost:3000 || echo "Skipping wait if no server is needed"
 
       - name: Build and run tests using Maven
         run: mvn clean install
@@ -68,7 +81,6 @@ jobs:
       - name: Send email notification with build reports
         uses: dawidd6/action-send-mail@v4
         with:
-          # Email settings
           from: ${{ secrets.EMAIL_USERNAME }}
           to: arunmanasu199465@gmail.com
           subject: "CI Build Success - Selenium and Cucumber Reports"
