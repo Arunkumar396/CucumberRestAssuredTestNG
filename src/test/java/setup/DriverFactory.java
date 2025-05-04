@@ -60,7 +60,7 @@ public class DriverFactory {
      * @param browserview - View type: "mobileview" or "web".
      */
     private void initializeChromeDriver(String browserview) {
-        WebDriverManager.chromedriver().setup();
+    	WebDriverManager.chromedriver().driverVersion("131.0.6161.100").setup();
         ChromeOptions options = new ChromeOptions();
 
         // Set Chrome to headless mode for CI environments
