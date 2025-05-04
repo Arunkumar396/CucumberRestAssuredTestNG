@@ -30,22 +30,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven
 
-      - name: Install Google Chrome and matching ChromeDriver
+      - name: Install specific Chrome v124 and matching ChromeDriver
         run: |
           sudo apt update
           sudo apt install -y wget unzip curl gnupg2
 
-          # Correct Chrome download URL
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install -y ./google-chrome-stable_current_amd64.deb
+          # Install Chrome v124
+          wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_124.0.6367.60-1_amd64.deb
+          sudo apt install -y ./google-chrome-stable_124.0.6367.60-1_amd64.deb
 
-          # Get Chrome version and major version
-          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-          CHROME_MAJOR_VERSION=$(echo $CHROME_VERSION | cut -d '.' -f 1)
-
-          # Download matching ChromeDriver
-          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR_VERSION}")
-          wget -O chromedriver.zip "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+          # Install matching ChromeDriver v124
+          wget -O chromedriver.zip https://chromedriver.storage.googleapis.com/124.0.6367.60/chromedriver_linux64.zip
           unzip chromedriver.zip
           sudo mv chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
