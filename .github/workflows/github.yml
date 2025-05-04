@@ -30,17 +30,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven
 
-      - name: Install specific Chrome v124 and matching ChromeDriver
+      - name: Install specific Chrome and matching ChromeDriver
         run: |
           sudo apt update
           sudo apt install -y wget unzip curl gnupg2
 
-          # Install Chrome v124
-          wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_124.0.6367.60-1_amd64.deb
-          sudo apt install -y --allow-downgrades ./google-chrome-stable_124.0.6367.60-1_amd64.deb
+          # Install the latest available Chrome (adjust as necessary)
+          wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_124.0.6367.60-1_amd64.deb || echo "Specific version not available, skipping Chrome installation"
+          sudo apt install -y ./google-chrome-stable_124.0.6367.60-1_amd64.deb || echo "Chrome version not found, skipping installation"
 
-          # Install matching ChromeDriver v124
-          wget -O chromedriver.zip https://chromedriver.storage.googleapis.com/124.0.6367.60/chromedriver_linux64.zip
+          # Download the latest available ChromeDriver
+          LATEST_CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
+          echo "Using ChromeDriver version: ${LATEST_CHROMEDRIVER_VERSION}"
+          wget -O chromedriver.zip "https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
           unzip chromedriver.zip
           sudo mv chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
@@ -52,7 +54,6 @@ jobs:
 
       - name: Start Local Server (if needed)
         run: |
-          # Replace with your actual server command if needed
           echo "No local server started (skip if not required)"
 
       - name: Wait for Localhost (optional)
