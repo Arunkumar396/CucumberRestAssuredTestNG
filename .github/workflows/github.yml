@@ -37,7 +37,7 @@ jobs:
 
           # Install Chrome v124
           wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_124.0.6367.60-1_amd64.deb
-          sudo apt install -y ./google-chrome-stable_124.0.6367.60-1_amd64.deb
+          sudo apt install -y --allow-downgrades ./google-chrome-stable_124.0.6367.60-1_amd64.deb
 
           # Install matching ChromeDriver v124
           wget -O chromedriver.zip https://chromedriver.storage.googleapis.com/124.0.6367.60/chromedriver_linux64.zip
