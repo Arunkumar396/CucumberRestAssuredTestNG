@@ -10,7 +10,7 @@ on:
 jobs:
   selenium-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 30  # Increase job timeout to 30 minutes for longer runs
+    timeout-minutes: 30
 
     steps:
       - name: Checkout code
@@ -31,14 +31,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven
 
-      - name: Install specific Chrome and matching ChromeDriver
+      - name: Install Chrome and ChromeDriver
         run: |
           sudo apt update
-          sudo apt install -y wget unzip curl gnupg2
-
-          # Install the latest available Chrome (adjust as necessary)
-          wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_124.0.6367.60-1_amd64.deb || echo "Specific version not available, skipping Chrome installation"
-          sudo apt install -y ./google-chrome-stable_124.0.6367.60-1_amd64.deb || echo "Chrome version not found, skipping installation"
+          sudo apt install -y wget unzip curl gnupg2 google-chrome-stable
 
           # Download the latest available ChromeDriver
           LATEST_CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
@@ -48,17 +44,23 @@ jobs:
           sudo mv chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
 
-      - name: Set up environment variables for headless mode
+      - name: Set environment variables
         run: |
           echo "CHROME_BIN=/usr/bin/google-chrome" >> $GITHUB_ENV
           echo "CHROME_DRIVER=/usr/local/bin/chromedriver" >> $GITHUB_ENV
 
-      - name: Check if site is reachable
+      - name: Diagnostic check
         run: |
-          curl -I --http1.1 https://www.naukri.com || echo "Website is not reachable"
+          java -version
+          mvn -v
+          google-chrome --version
+          chromedriver --version
+
+      - name: Check if Naukri site is reachable
+        run: curl -I --http1.1 https://www.naukri.com || echo "Website is not reachable"
 
       - name: Build and run tests using Maven
-        run: mvn clean install
+        run: mvn clean install -X
 
       - name: Run Selenium Tests
         run: mvn test
@@ -81,7 +83,13 @@ jobs:
           from: ${{ secrets.EMAIL_USERNAME }}
           to: arunmanasu199465@gmail.com
           subject: "CI Build Success - Selenium and Cucumber Reports"
-          body: "Hi,\n\nThe CI build has completed successfully. Please find the attached reports for the TestNG and Cucumber execution.\n\nBest,\nYour CI System"
+          body: |
+            Hi,
+
+            The CI build has completed successfully. Please find the attached reports for the TestNG and Cucumber execution.
+
+            Best,
+            Your CI System
           smtp-server: smtp.gmail.com
           smtp-port: 587
           smtp-user: ${{ secrets.EMAIL_USERNAME }}
@@ -90,10 +98,7 @@ jobs:
             test-output/SparkReport/Spark.html
             target/surefire-reports/*.xml
 
-      - name: Run a one-line script
-        run: echo Build and tests completed!
-
-      - name: Run a multi-line script
+      - name: Final message
         run: |
-          echo You can add deployment steps here if needed.
+          echo Build and tests completed!
           echo CI run for githubCI branch complete.
