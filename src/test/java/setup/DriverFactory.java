@@ -64,12 +64,12 @@ public class DriverFactory {
         ChromeOptions options = new ChromeOptions();
 
         // Set Chrome to headless mode for CI environments
- //       options.addArguments("--headless");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("disable-gpu");
-        options.addArguments("--window-size=1920x1080");
-        options.addArguments("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
+//        options.addArguments("--headless");
+//        options.addArguments("--disable-dev-shm-usage");
+//        options.addArguments("--no-sandbox");
+//        options.addArguments("disable-gpu");
+//        options.addArguments("--window-size=1920x1080");
+//        options.addArguments("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
 
 //        // Set unique user data directory to avoid conflicts
 //        String userDataDir = "/tmp/chrome-user-data/" + System.currentTimeMillis(); // Use temp directory for CI
