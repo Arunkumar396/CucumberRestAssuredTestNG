@@ -18,8 +18,9 @@ public class NowkariProfileUpdate extends DriverFactory {
     private NowkaripageHomePage nowkariPage = new NowkaripageHomePage(getDriver());
 
     @Given("I navigate to nowkari website")
-    public void i_navigate_to_nowkari_website() {
+    public void i_navigate_to_nowkari_website() throws InterruptedException {
     	
+    	Thread.sleep(100000);
     	ElementUtil.fluentWaitForVisibility(nowkariPage.getlogo_nowkari());
         Assert.assertTrue(ElementUtil.checkIfElementIsPresent(nowkariPage.getlogo_nowkari()), "Nowkari home page successfully displayed");
     }
