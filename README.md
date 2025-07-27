@@ -1,7 +1,6 @@
 
 # CucumberRestAssuredTestNG
 
-> **Test**  
 Project designed to run automated BDD tests using Cucumber, Rest Assured, and TestNG in Java. Instead of writing complicated test code, Cucumber enables mapping ordinary language to code for easy collaboration between testers and developers. This repository allows users to quickly set up and execute REST API and UI tests, supporting robust reporting and utilities for common testing tasks.
 
 **Note:** This project includes utility methods (click, fill, waits, DB connection, file management, etc.) for end-to-end test automation.
