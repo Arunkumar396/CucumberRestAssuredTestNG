@@ -1,9 +1,8 @@
+
 # CucumberRestAssuredTestNG
 
 > **Test**  
-> Cucumber, Rest Assured, TestNG boilerplate for automated BDD testing in Java
-
- Project designed to run automated BDD tests using Cucumber, Rest Assured, and TestNG in Java. Instead of writing complicated test code, Cucumber enables mapping ordinary language to code for easy collaboration between testers and developers. This repository allows users to quickly set up and execute REST API and UI tests, supporting robust reporting and utilities for common testing tasks.
+Project designed to run automated BDD tests using Cucumber, Rest Assured, and TestNG in Java. Instead of writing complicated test code, Cucumber enables mapping ordinary language to code for easy collaboration between testers and developers. This repository allows users to quickly set up and execute REST API and UI tests, supporting robust reporting and utilities for common testing tasks.
 
 **Note:** This project includes utility methods (click, fill, waits, DB connection, file management, etc.) for end-to-end test automation.
 
@@ -17,6 +16,20 @@
 - **ChromeDriver/GeckoDriver** (for local UI tests)
 - **Test data files** in Excel/JSON format
 - **Properties/config file** (`config.properties`) for environment configuration
+
+---
+
+## Technologies Used
+
+- Java 8+
+- Maven
+- Cucumber
+- TestNG
+- Rest Assured
+- Selenium WebDriver
+- ExtentReports
+- Apache POI
+- JSON
 
 > Additional dependencies:  
 > - [Cucumber](https://cucumber.io/)  
@@ -55,11 +68,48 @@
 
 ## Project Structure
 
-- `src/test/java/stepDefnition/` — Step definitions for BDD scenarios
-- `src/test/java/setup/` — Test hooks and configuration management
-- `src/test/java/util/` — Utility classes for suite-wide operations (file, DB, waits, etc.)
-- `src/test/java/testrunners/MyTestRunner.java` — Cucumber-TestNG runner configuration
-- `src/test/resources/features/` — Gherkin feature files
+```bash
+CucumberRestAssuredTestNG/
+│
+├── src/
+│   └── test/
+│       ├── java/
+│       │   ├── api/                    # API request/response handling
+│       │   ├── apiPojo/               # POJO classes for API payloads
+│       │   ├── pages/                 # Page Object Model (UI elements/actions)
+│       │   │   └── LoginPage.java
+│       │   ├── setup/                 # Setup hooks & drivers
+│       │   │   ├── ApplicationHooks.java
+│       │   │   ├── ConfigReader.java
+│       │   │   └── DriverFactory.java
+│       │   ├── stepDefinition/        # Step definitions for BDD
+│       │   │   ├── AppPlaceApi.java
+│       │   │   └── LoginPageSteps.java
+│       │   ├── testrunners/           # Cucumber TestNG runners
+│       │   │   └── MyTestRunner.java
+│       │   └── util/                  # Utility classes (Excel, Waits, JSON, Constants)
+│       │       ├── Constants.java
+│       │       ├── ElementUtil.java
+│       │       ├── ExcelData.java
+│       │       ├── SoftAssert.java
+│       │       ├── StatusResult.java
+│       │       ├── Status.java
+│       │       └── Utility.java
+│       │
+│       └── resources/
+│           └── features/              # Gherkin feature files and configs
+│               ├── cucumber.properties
+│               ├── extent.properties
+│               └── extent-config.xml
+│
+├── test-input/                         # Input files (if any)
+├── test-output/                        # Output, reports, logs
+├── pom.xml                             # Maven project file (dependencies, plugins)
+├── testng.xml                          # TestNG suite file
+├── config.properties                   # Global configuration file
+├── logging.txt                         # Log file
+└── ObjectRepository.json               # JSON object repository
+```
 
 ---
 
@@ -95,14 +145,6 @@ This project currently does not specify a license. Please add one if required.
 
 ---
 
-# Project Analysis: CucumberRestAssuredTestNG
-
-## Overview
-
-This repository provides a boilerplate for automating BDD (Behavior Driven Development) tests in Java using **Cucumber**, **Rest Assured**, and **TestNG**. It is designed to support both API and UI test automation, with integration for Selenium WebDriver and advanced reporting via ExtentReports. The project includes utilities for data-driven testing, environment setup, and test execution hooks.
-
----
-
 ## Major Components & Their Purpose
 
 - **Feature Files**: Gherkin scenarios for behavior definition
@@ -112,20 +154,6 @@ This repository provides a boilerplate for automating BDD (Behavior Driven Devel
 - **Utilities**: File, DB, waits, random data generation
 - **Data & Config**: `.properties`, `.json`, `.xlsx` support
 - **Reporting**: ExtentReports and TestNG XML reports
-
----
-
-## Technologies Used
-
-- Java 8+
-- Maven
-- Cucumber
-- TestNG
-- Rest Assured
-- Selenium WebDriver
-- ExtentReports
-- Apache POI
-- JSON
 
 ---
 
